@@ -34,14 +34,21 @@ package java.io;
  * <code>OutputStream</code> must always provide at least a method
  * that writes one byte of output.
  *
- * @author  Arthur van Hoff
- * @see     java.io.BufferedOutputStream
- * @see     java.io.ByteArrayOutputStream
- * @see     java.io.DataOutputStream
- * @see     java.io.FilterOutputStream
- * @see     java.io.InputStream
- * @see     java.io.OutputStream#write(int)
- * @since   JDK1.0
+ * @author Arthur van Hoff
+ * @see java.io.BufferedOutputStream
+ * @see java.io.ByteArrayOutputStream
+ * @see java.io.DataOutputStream
+ * @see java.io.FilterOutputStream
+ * @see java.io.InputStream
+ * @see java.io.OutputStream#write(int)
+ * @since JDK1.0
+ */
+
+/**
+ * “输出流”的顶级。
+ * 按照流的流向，分为：输出流和输入流。
+ * 输出流：数据从目标程序流向程序之外的流称为输出流
+ * 输入流：数据从外部流向目标程序的流称为输入流
  */
 public abstract class OutputStream implements Closeable, Flushable {
     /**
@@ -55,9 +62,15 @@ public abstract class OutputStream implements Closeable, Flushable {
      * implementation for this method.
      *
      * @param      b   the <code>byte</code>.
-     * @exception  IOException  if an I/O error occurs. In particular,
+     * @exception IOException  if an I/O error occurs. In particular,
      *             an <code>IOException</code> may be thrown if the
      *             output stream has been closed.
+     */
+    /**
+     * 将一个字节 b 写入到输出流中，这是一个抽象类，此处只是定义了方法的基本功能蓝图，具体实现交给子类。
+     *
+     * @param b
+     * @throws IOException
      */
     public abstract void write(int b) throws IOException;
 
@@ -67,11 +80,18 @@ public abstract class OutputStream implements Closeable, Flushable {
      * is that it should have exactly the same effect as the call
      * <code>write(b, 0, b.length)</code>.
      *
-     * @param      b   the data.
-     * @exception  IOException  if an I/O error occurs.
-     * @see        java.io.OutputStream#write(byte[], int, int)
+     * @param b the data.
+     * @throws IOException if an I/O error occurs.
+     * @see java.io.OutputStream#write(byte[], int, int)
+     */
+    /**
+     * 将一个字节数组 b[] 写出到输出流中
+     *
+     * @param b
+     * @throws IOException
      */
     public void write(byte b[]) throws IOException {
+        //调用了另个构造方法，构造方法复用
         write(b, 0, b.length);
     }
 
@@ -96,23 +116,29 @@ public abstract class OutputStream implements Closeable, Flushable {
      * <code>off+len</code> is greater than the length of the array
      * <code>b</code>, then an <tt>IndexOutOfBoundsException</tt> is thrown.
      *
-     * @param      b     the data.
-     * @param      off   the start offset in the data.
-     * @param      len   the number of bytes to write.
-     * @exception  IOException  if an I/O error occurs. In particular,
-     *             an <code>IOException</code> is thrown if the output
-     *             stream is closed.
+     * @param b   the data.
+     * @param off the start offset in the data.
+     * @param len the number of bytes to write.
+     * @throws IOException if an I/O error occurs. In particular,
+     *                     an <code>IOException</code> is thrown if the output
+     *                     stream is closed.
+     */
+    /**
+     * @param b   字节 b
+     * @param off 偏移量 off，指定目标数组中开始写入的位置是 off
+     * @param len 长度，指定目标数组中从开始写入的位置 off 开始 写入 len 个字节，eg:
+     *            write(array,1,10) => 从数组的下标 1 处开始写入，写入从下标 1开始（包括1下标的数据）的10个数据
+     * @throws IOException
      */
     public void write(byte b[], int off, int len) throws IOException {
         if (b == null) {
             throw new NullPointerException();
-        } else if ((off < 0) || (off > b.length) || (len < 0) ||
-                   ((off + len) > b.length) || ((off + len) < 0)) {
+        } else if ((off < 0) || (off > b.length) || (len < 0) || ((off + len) > b.length) || ((off + len) < 0)) {
             throw new IndexOutOfBoundsException();
         } else if (len == 0) {
             return;
         }
-        for (int i = 0 ; i < len ; i++) {
+        for (int i = 0; i < len; i++) {
             write(b[off + i]);
         }
     }
@@ -133,7 +159,7 @@ public abstract class OutputStream implements Closeable, Flushable {
      * <p>
      * The <code>flush</code> method of <code>OutputStream</code> does nothing.
      *
-     * @exception  IOException  if an I/O error occurs.
+     * @throws IOException if an I/O error occurs.
      */
     public void flush() throws IOException {
     }
@@ -146,7 +172,7 @@ public abstract class OutputStream implements Closeable, Flushable {
      * <p>
      * The <code>close</code> method of <code>OutputStream</code> does nothing.
      *
-     * @exception  IOException  if an I/O error occurs.
+     * @throws IOException if an I/O error occurs.
      */
     public void close() throws IOException {
     }
