@@ -126,6 +126,10 @@ public class ArrayList<E> extends AbstractList<E>
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
 
     /**
+     * elementData：元素数组
+     *
+     * size：elementData 数组已经使用的大小， 而 elementData 是 ArrayList 真正的大小
+     *
      * The array buffer into which the elements of the ArrayList are stored.
      * The capacity of the ArrayList is the length of this array buffer. Any
      * empty ArrayList with elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA
