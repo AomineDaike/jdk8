@@ -125,7 +125,7 @@ public abstract class OutputStream implements Closeable, Flushable {
      */
     /**
      * @param b   字节 b
-     * @param off 偏移量 off，指定目标数组中开始写入的位置是 off
+     * @param off 起始位置 off，指定目标数组中开始写入的位置是 off
      * @param len 长度，指定目标数组中从开始写入的位置 off 开始 写入 len 个字节，eg:
      *            write(array,1,10) => 从数组的下标 1 处开始写入，写入从下标 1开始（包括1下标的数据）的10个数据
      * @throws IOException
